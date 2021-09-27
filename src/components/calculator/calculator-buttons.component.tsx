@@ -32,9 +32,17 @@ const CalculatorButtons: React.FC = () => {
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((num, index, arr) => {
             if (index === arr.length - 1) {
               return (
-                <Grid item xs={12} key={num} className={styles.numberButton}>
-                  <CalculatorButton label={num} onClick={() => console.log(num)} />
-                </Grid>
+                <>
+                  <Grid item xs={4} key={num} className={styles.numberButton}>
+                    <CalculatorButton label={num} onClick={() => console.log(num)} />
+                  </Grid>
+                  <Grid item xs={4} key="del" className={styles.numberButton}>
+                    <CalculatorButton label="del" onClick={() => console.log(num)} />
+                  </Grid>
+                  <Grid item xs={4} key="enter" className={styles.numberButton}>
+                    <CalculatorButton label="enter" onClick={() => console.log(num)} />
+                  </Grid>
+                </>
               );
             }
             return (
