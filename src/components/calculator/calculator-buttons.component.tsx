@@ -1,9 +1,12 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import makeStyles from '@mui/styles/makeStyles';
 import CalculatorButton from './calculator-button.component';
+
+interface CalculatorButtonsProps {
+  updateEquation: (element?: string | number) => void;
+  runEquation: () => void;
+}
 
 const useStyles = makeStyles({
   numberButton: {
@@ -22,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-const CalculatorButtons: React.FC = () => {
+const CalculatorButtons: React.FC<CalculatorButtonsProps> = ({ updateEquation, runEquation }) => {
   const styles = useStyles();
 
   return (
@@ -34,20 +37,20 @@ const CalculatorButtons: React.FC = () => {
               return (
                 <>
                   <Grid item xs={4} key={num} className={styles.numberButton}>
-                    <CalculatorButton label={num} onClick={() => console.log(num)} />
+                    <CalculatorButton label={num} onClick={() => updateEquation(num)} />
                   </Grid>
                   <Grid item xs={4} key="del" className={styles.numberButton}>
-                    <CalculatorButton label="del" onClick={() => console.log(num)} />
+                    <CalculatorButton label="del" onClick={() => updateEquation()} />
                   </Grid>
                   <Grid item xs={4} key="enter" className={styles.numberButton}>
-                    <CalculatorButton label="enter" onClick={() => console.log(num)} />
+                    <CalculatorButton label="enter" onClick={() => runEquation()} />
                   </Grid>
                 </>
               );
             }
             return (
               <Grid item xs={4} key={num} className={styles.numberButton}>
-                <CalculatorButton label={num} onClick={() => console.log(num)} />
+                <CalculatorButton label={num} onClick={() => updateEquation(num)} />
               </Grid>
             );
           })}
@@ -57,7 +60,7 @@ const CalculatorButtons: React.FC = () => {
         <Grid container spacing={1}>
           {['+', '-', '/', 'x'].map((operand) => (
             <Grid item xs={12} key={operand} className={styles.plusButton}>
-              <CalculatorButton label={operand} onClick={() => console.log(operand)} />
+              <CalculatorButton label={operand} onClick={() => updateEquation(operand)} />
             </Grid>
           ))}
         </Grid>
