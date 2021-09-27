@@ -1,5 +1,6 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import makeStyles from '@mui/styles/makeStyles';
 import CalculatorButton from './calculator-button.component';
 
@@ -16,9 +17,9 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  plusButton: {
+  operandButton: {
     height: '5rem',
-    width: '100%',
+    width: '5rem',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -30,41 +31,29 @@ const CalculatorButtons: React.FC<CalculatorButtonsProps> = ({ updateEquation, r
 
   return (
     <Grid container spacing={1} height="15rem">
-      <Grid item xs={8}>
-        <Grid container spacing={1}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((num, index, arr) => {
-            if (index === arr.length - 1) {
-              return (
-                <>
-                  <Grid item xs={4} key={num} className={styles.numberButton}>
-                    <CalculatorButton label={num} onClick={() => updateEquation(num)} />
-                  </Grid>
-                  <Grid item xs={4} key="del" className={styles.numberButton}>
-                    <CalculatorButton label="del" onClick={() => updateEquation()} />
-                  </Grid>
-                  <Grid item xs={4} key="enter" className={styles.numberButton}>
-                    <CalculatorButton label="enter" onClick={() => runEquation()} />
-                  </Grid>
-                </>
-              );
-            }
-            return (
-              <Grid item xs={4} key={num} className={styles.numberButton}>
-                <CalculatorButton label={num} onClick={() => updateEquation(num)} />
-              </Grid>
-            );
-          })}
-        </Grid>
-      </Grid>
-      <Grid item xs={4}>
-        <Grid container spacing={1}>
-          {['+', '-', '/', 'x'].map((operand) => (
-            <Grid item xs={12} key={operand} className={styles.plusButton}>
-              <CalculatorButton label={operand} onClick={() => updateEquation(operand)} />
+      {[1, 2, 3, '+', 4, 5, 6, '-', 7, 8, 9, '*', 0, 'del', 'enter', 'x'].map((label, index, arr) => {
+        if (label === 'enter') {
+          return (
+            <Grid item xs={3} key={label} className={styles.numberButton}>
+              <CalculatorButton label={label} onClick={() => runEquation()} />
             </Grid>
-          ))}
-        </Grid>
-      </Grid>
+          );
+        }
+
+        if (label === 'del') {
+          return (
+            <Grid item xs={3} key={label} className={styles.numberButton}>
+              <CalculatorButton label={label} onClick={() => updateEquation()} />
+            </Grid>
+          );
+        }
+
+        return (
+          <Grid item xs={3} key={label} className={styles.numberButton}>
+            <CalculatorButton label={label} onClick={() => updateEquation(label)} />
+          </Grid>
+        );
+      })}
     </Grid>
   );
 };

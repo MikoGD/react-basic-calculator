@@ -74,7 +74,8 @@ const CalculatorContainer: React.FC = () => {
         result = operator1 / operator2;
         break;
       default:
-        throw new Error(`unhandled operand: ${operand}`);
+        newEquation.current = true;
+        return;
     }
 
     setEquation(String(result));
