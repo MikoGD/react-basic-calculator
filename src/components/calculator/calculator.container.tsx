@@ -52,11 +52,22 @@ const CalculatorContainer: React.FC = () => {
   const runEquation = () => {
     newEquation.current = false;
 
-    const elements = equation.split(' ');
+    const elements = equation.split(' ').map((elem, index) => {
+      if (index !== 1) {
+        return Number(elem);
+      }
 
-    const operator1 = Number(elements[0]);
+      return elem;
+    });
+
+    if (elements.length !== 3 || !elements.every((elem) => !!elem)) {
+      newEquation.current = true;
+      return;
+    }
+
+    const operator1 = elements[0] as number;
     const operand = elements[1];
-    const operator2 = Number(elements[2]);
+    const operator2 = elements[2] as number;
 
     let result = 0;
 
@@ -67,15 +78,14 @@ const CalculatorContainer: React.FC = () => {
       case '-':
         result = operator1 - operator2;
         break;
-      case 'x':
+      case '*':
         result = operator1 * operator2;
         break;
       case '/':
         result = operator1 / operator2;
         break;
       default:
-        newEquation.current = true;
-        return;
+        throw new Error(`unhandled operand: ${operand}`);
     }
 
     setEquation(String(result));
