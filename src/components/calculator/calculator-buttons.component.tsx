@@ -31,7 +31,7 @@ const CalculatorButtons: React.FC<CalculatorButtonsProps> = ({ updateEquation, r
 
   return (
     <Grid container spacing={1} height="15rem">
-      {[1, 2, 3, '+', 4, 5, 6, '-', 7, 8, 9, '*', 0, 'del', 'enter', 'x'].map((label, index, arr) => {
+      {[1, 2, 3, '+', 4, 5, 6, '-', 7, 8, 9, '*', 0, 'del', 'enter', '/'].map((label, index, arr) => {
         if (label === 'enter') {
           return (
             <Grid item xs={3} key={label} className={styles.numberButton}>
